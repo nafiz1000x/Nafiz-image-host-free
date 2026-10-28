@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="bn" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#F5EFE3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F0F0F" media="(prefers-color-scheme: dark)">
+<title>Nafiz Image Host Free — Free Image Hosting</title>
+<meta name="description" content="Nafiz Image Host Free — দ্রুত ও ফ্রি ইমেজ হোস্টিং। ছবি আপলোড করুন, ডাইরেক্ট লিংক ও BBCode কপি করুন। Developer: Nafiz Sheikh.">
+<meta name="author" content="Nafiz Sheikh">
+<link rel="canonical" href="https://nafiz1000x.github.io/Nafizsheikh.web/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nafiz Image Host Free — Free Image Hosting">
+<meta property="og:description" content="দ্রুত ও ফ্রি ইমেজ হোস্টিং। Developer: Nafiz Sheikh">
+<meta property="og:url" content="https://nafiz1000x.github.io/Nafizsheikh.web/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nafiz Image Host Free — Free Image Hosting">
+<meta name="twitter:description" content="দ্রুত ও ফ্রি ইমেজ হোস্টিং। Developer: Nafiz Sheikh">
+
+<script>
+/* Apply saved theme before first paint to avoid flash. */
+(function () {
+  try {
+    var saved = localStorage.getItem('nafiz-theme');
+    if (!saved) {
+      saved = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark' : 'light';
+    }
+    document.documentElement.setAttribute('data-theme', saved);
+  } catch (e) {
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+})();
+</script>
+
+<style>
+/* ============================================================
+   Design tokens — Neo-brutalist (cream + black + orange)
+   ============================================================ */
+:root {
+  --bg: #F5EFE3;
+  --surface: #FFFFFF;
+  --surface-2: #FAF6ED;
+  --text: #141414;
+  --muted: #6B6558;
+  --border: #141414;
+  --border-soft: #D9D2C2;
+  --accent: #FF5C00;
+  --accent-hover: #E64F00;
+  --accent-soft: #FFE5D6;
+  --accent-contrast: #141414;
+  --danger: #D8262C;
+  --ok: #0A9D3F;
+  --shadow: 4px 4px 0 var(--border);
+  --shadow-sm: 2px 2px 0 var(--border);
+  --shadow-lg: 6px 6px 0 var(--border);
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 18px;
+  --ring: 0 0 0 3px rgba(255, 92, 0, .35);
+}
+
+[data-theme="dark"] {
+  --bg: #0F0F0F;
+  --surface: #1A1A1A;
+  --surface-2: #141414;
+  --text: #F5EFE3;
+  --muted: #A8A096;
+  --border: #F5EFE3;
+  --border-soft: #333333;
+  --accent: #FF7A2A;
+  --accent-hover: #FF9352;
+  --accent-soft: rgba(255, 122, 42, .16);
+  --accent-contrast: #0F0F0F;
+  --danger: #FF4D5A;
+  --ok: #3DDC84;
+  --ring: 0 0 0 3px rgba(255, 122, 42, .45);
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: "Noto Sans Bengali", "Hind Siliguri", "Segoe UI", system-ui,
+               -apple-system, "Roboto", "Tahoma", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  background-color: var(--bg);
+  background-image: radial-gradient(circle, var(--border-soft) 1px, transparent 1px);
+  background-size: 22px 22px;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color .3s ease, color .3s ease;
+}
+
+[hidden] { display: none !important; }
+
+h1, h2, h3 { margin: 0; line-height: 1.2; letter-spacing: -0.02em; }
+p { margin: 0; }
+img { max-width: 100%; }
+a { color: var(--accent); text-decoration: none; }
+
+:focus-visible { outline: none; box-shadow: var(--ring); border-radius: 6px; }
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 11px 18px;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform .14s ease, box-shadow .14s ease,
+              background-color .14s ease, color .14s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow); }
+.btn:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--border); }
+
+.btn-primary { background: var(--accent); color: var(--accent-contrast); }
+.btn-primary:hover { background: var(--accent-hover); }
+
+.btn-danger-outline { color: var(--danger); }
+.btn-danger-outline:hover { background: var(--danger); color: #fff; }
+
+.btn-sm { padding: 8px 14px; font-size: 13px; }
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: transform .14s ease, box-shadow .14s ease, color .14s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.icon-btn:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow); color: var(--accent); }
+.icon-btn:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--border); }
+.icon-btn svg { width: 18px; height: 18px; }
+
+.icon-moon { display: none; }
+[data-theme="dark"] .icon-sun { display: none; }
+[data-theme="dark"] .icon-moon { display: block; }
+
+/* ============================================================
+   Header
+   ============================================================ */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: var(--bg);
+  border-bottom: 2px solid var(--border);
+  transition: background-color .3s ease, border-color .3s ease;
+}
+
+.header-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.brand-block { min-width: 0; }
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1;
+  transition: transform .2s ease;
+}
+.brand:hover .brand-mark { transform: rotate(-6deg); }
+
+.brand-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.brand-free {
+  display: inline-block;
+  padding: 2px 7px;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  border: 1.5px solid var(--border);
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  line-height: 1.2;
+}
+
+.dev-line {
+  margin: 4px 0 0;
+  padding-left: 44px;
+  font-size: 12.5px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dev-line a {
+  color: var(--text);
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+  text-decoration-color: var(--accent);
+  transition: color .15s ease;
+}
+.dev-line a:hover { color: var(--accent); }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+}
+
+/* ============================================================
+   Hero
+   ============================================================ */
+.hero {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 52px 20px 0;
+  text-align: center;
+}
+
+.eyebrow {
+  display: inline-block;
+  padding: 6px 14px;
+  background: var(--accent-soft);
+  border: 2px solid var(--border);
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.hero h1 {
+  margin: 22px 0 0;
+  font-size: clamp(1.9rem, 6.4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.16;
+}
+.hero h1 em { font-style: normal; color: var(--accent); }
+
+.lede {
+  margin: 16px auto 0;
+  max-width: 500px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* ============================================================
+   Dropzone
+   ============================================================ */
+.dropzone {
+  position: relative;
+  display: block;
+  margin: 32px auto 0;
+  padding: 48px 22px;
+  text-align: center;
+  background: var(--surface);
+  border: 3px dashed var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: transform .18s ease, box-shadow .18s ease,
+              background-color .18s ease, border-color .18s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.dropzone:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-lg);
+  background: var(--accent-soft);
+}
+.dropzone.drag {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-lg);
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  border-style: solid;
+}
+
+.drop-icon {
+  display: grid;
+  place-items: center;
+  width: 62px;
+  height: 62px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  border: 2px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: transform .2s ease;
+}
+.dropzone:hover .drop-icon { transform: translateY(-3px) rotate(-5deg); }
+
+.drop-title {
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+.drop-sub {
+  margin-top: 6px;
+  font-size: 14.5px;
+  color: var(--muted);
+}
+.drop-link {
+  color: var(--accent);
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 2px;
+}
+.drop-meta {
+  margin-top: 18px;
+  font-size: 11.5px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+/* ============================================================
+   Progress
+   ============================================================ */
+.progress {
+  margin: 22px auto 0;
+  padding: 16px 18px;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  text-align: left;
+}
+
+.progress-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+}
+#progressText { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#progressPct { color: var(--accent); font-variant-numeric: tabular-nums; }
+
+.bar {
+  height: 14px;
+  border-radius: 6px;
+  border: 2px solid var(--border);
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.fill {
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  transition: width .25s ease;
+}
+
+/* ============================================================
+   Result card
+   ============================================================ */
+.result {
+  margin: 22px auto 0;
+  padding: 20px;
+  text-align: left;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  animation: popIn .3s cubic-bezier(.2, .8, .3, 1) both;
+}
+
+.result-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 2px dashed var(--border-soft);
+}
+.result-head h3 { font-size: 16px; font-weight: 800; }
+.result-head p { font-size: 12.5px; color: var(--muted); }
+
+.check {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--ok);
+  color: #fff;
+  border: 2px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.result-body {
+  display: grid;
+  grid-template-columns: 116px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.preview {
+  display: block;
+  aspect-ratio: 1;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 2px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  background: var(--surface-2);
+}
+.preview img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+.fields { display: grid; gap: 12px; min-width: 0; }
+
+.field-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.link-box { display: flex; gap: 8px; }
+
+.link-box input {
+  flex: 1;
+  min-width: 0;
+  padding: 11px 12px;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: box-shadow .15s ease;
+}
+.link-box input:focus {
+  outline: none;
+  box-shadow: var(--ring);
+}
+
+.btn-copy { min-width: 78px; padding: 11px 14px; font-size: 13px; }
+.btn-copy.copied { background: var(--ok); color: #fff; }
+
+/* ============================================================
+   Gallery
+   ============================================================ */
+.gallery-section {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 64px 20px 0;
+  scroll-margin-top: 96px;
+}
+
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.section-head h2 {
+  font-size: clamp(1.15rem, 3.2vw, 1.4rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+.pill {
+  padding: 3px 11px;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  font-size: 12.5px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+#clearBtn { margin-left: auto; }
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+  gap: 14px;
+}
+
+.thumb {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface-2);
+  border: 2px solid var(--border);
+  box-shadow: 3px 3px 0 var(--border);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .35s cubic-bezier(.2, .8, .3, 1);
+}
+.thumb:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--accent);
+  border-color: var(--accent);
+}
+.thumb:hover img { transform: scale(1.06); }
+.thumb:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--border); }
+
+/* ============================================================
+   Empty state
+   ============================================================ */
+.gallery-empty {
+  display: grid;
+  place-items: center;
+  gap: 10px;
+  padding: 52px 20px;
+  text-align: center;
+  background: var(--surface);
+  border: 3px dashed var(--border-soft);
+  border-radius: var(--radius-lg);
+  color: var(--muted);
+}
+
+.empty-icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 2px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 4px;
+}
+.empty-title { font-size: 16px; font-weight: 800; color: var(--text); }
+.empty-sub { font-size: 13.5px; }
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.site-footer {
+  margin-top: 64px;
+  border-top: 2px solid var(--border);
+  background: var(--surface);
+  transition: background-color .3s ease;
+}
+
+.footer-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 22px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.footer-brand {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+.footer-brand span { color: var(--muted); font-weight: 500; }
+
+.dev-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--surface-2);
+  border: 2px solid var(--border);
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 700;
+  transition: transform .15s ease, box-shadow .15s ease,
+              background-color .15s ease, color .15s ease;
+}
+.dev-link:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.dev-link svg {
+  width: 12px;
+  height: 12px;
+  opacity: .75;
+  transition: transform .15s ease, opacity .15s ease;
+}
+.dev-link:hover svg { transform: translate(2px, -2px); opacity: 1; }
+
+.dev-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ok);
+  border: 1.5px solid var(--border);
+}
+
+/* ============================================================
+   Toast
+   ============================================================ */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: 200;
+  max-width: calc(100vw - 32px);
+  padding: 12px 20px;
+  background: var(--text);
+  color: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: 999px;
+  box-shadow: 4px 4px 0 var(--accent);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 16px);
+  transition: opacity .2s ease, transform .2s ease;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+.toast-ok { background: var(--ok); color: #fff; box-shadow: 4px 4px 0 var(--border); }
+.toast-error { background: var(--danger); color: #fff; box-shadow: 4px 4px 0 var(--border); }
+
+/* ============================================================
+   Animations
+   ============================================================ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes popIn {
+  from { opacity: 0; transform: scale(.98) translateY(6px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.hero > * { animation: fadeUp .45s cubic-bezier(.2, .8, .3, 1) both; }
+.hero > *:nth-child(1) { animation-delay: .02s; }
+.hero > *:nth-child(2) { animation-delay: .05s; }
+.hero > *:nth-child(3) { animation-delay: .09s; }
+.hero > *:nth-child(4) { animation-delay: .13s; }
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 640px) {
+  .hero { padding-top: 36px; }
+  .dropzone { padding: 38px 16px; }
+  .result-body { grid-template-columns: 1fr; }
+  .preview { aspect-ratio: 16 / 9; max-height: 180px; }
+  .link-box { flex-wrap: wrap; }
+  .link-box input { flex: 1 1 100%; }
+  .btn-copy { flex: 1 1 auto; }
+  .gallery { grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 10px; }
+  .gallery-section { padding-top: 48px; }
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 520px) {
+  .header-inner { padding: 10px 14px; }
+  .brand-mark { width: 32px; height: 32px; font-size: 16px; }
+  .brand-title { font-size: 15px; }
+  .dev-line { padding-left: 40px; font-size: 11.5px; }
+  #topUploadBtn .btn-label { display: none; }
+  #topUploadBtn { padding: 10px; }
+}
+
+@media (max-width: 360px) {
+  .brand-free { display: none; }
+  .brand-title { font-size: 14px; }
+  .dev-line { font-size: 10.5px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: .001ms !important;
+  }
+  .dropzone:hover, .thumb:hover, .dev-link:hover, .btn:hover, .icon-btn:hover { transform: none; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============================ Header ============================ -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand-block">
+      <a class="brand" href="#top" aria-label="Nafiz Image Host Free — হোম">
+        <span class="brand-mark" aria-hidden="true">N</span>
+        <span class="brand-title">Nafiz Image Host <span class="brand-free">Free</span></span>
+      </a>
+      <p class="dev-line">
+        Developer:
+        <a href="https://nafiz1000x.github.io/Nafizsheikh.web/"
+           target="_blank" rel="noopener noreferrer"
+           aria-label="Developer: Nafiz Sheikh — প্রোফাইল নতুন ট্যাবে খুলুন">Nafiz Sheikh</a>
+      </p>
+    </div>
+
+    <div class="header-actions">
+      <button class="icon-btn" id="themeToggle" type="button"
+              aria-label="থিম পরিবর্তন করুন" aria-pressed="false">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2.2M12 19.8V22M2 12h2.2M19.8 12H22M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M19.1 4.9l-1.6 1.6M6.5 17.5l-1.6 1.6"/>
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z"/>
+        </svg>
+      </button>
+
+      <button class="btn btn-primary btn-sm" id="topUploadBtn" type="button" aria-label="ছবি আপলোড করুন">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+             stroke-width="2.8" stroke-linecap="round" aria-hidden="true">
+          <path d="M12 5v14M5 12h14"/>
+        </svg>
+        <span class="btn-label">আপলোড</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============================ Hero + Uploader ============================ -->
+  <section class="hero">
+    <span class="eyebrow">ফ্রি ইমেজ হোস্টিং</span>
+
+    <h1>ছবি আপলোড করুন,<br><em>লিংক শেয়ার করুন</em></h1>
+
+    <p class="lede">ড্র্যাগ করে ছাড়ুন অথবা ক্লিক করে ব্রাউজ করুন — সর্বোচ্চ ৩২ MB প্রতিটি ছবির জন্য।</p>
+
+    <div id="dropzone" class="dropzone" role="button" tabindex="0"
+         aria-label="ছবি আপলোড করতে ক্লিক করুন অথবা ফাইল ড্র্যাগ করুন">
+      <input type="file" id="fileInput" accept="image/*" multiple hidden>
+
+      <div class="drop-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 16.5V4"/>
+          <path d="m7 9 5-5 5 5"/>
+          <path d="M20 16v2.5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V16"/>
+        </svg>
+      </div>
+
+      <p class="drop-title">এখানে ছবি ড্র্যাগ করুন</p>
+      <p class="drop-sub">অথবা <span class="drop-link">ফাইল ব্রাউজ করুন</span></p>
+      <p class="drop-meta">PNG · JPG · GIF · WEBP — ৩২ MB পর্যন্ত</p>
+    </div>
+
+    <div id="progress" class="progress" hidden role="status" aria-live="polite">
+      <div class="progress-head">
+        <span id="progressText">আপলোড হচ্ছে…</span>
+        <span id="progressPct">০%</span>
+      </div>
+      <div class="bar"><div class="fill" id="progressFill"></div></div>
+    </div>
+
+    <div id="result" class="result" hidden>
+      <div class="result-head">
+        <span class="check" aria-hidden="true">✓</span>
+        <div>
+          <h3>আপলোড সম্পন্ন</h3>
+          <p>লিংক কপি করে যেকোনো জায়গায় শেয়ার করুন</p>
+        </div>
+      </div>
+
+      <div class="result-body">
+        <a class="preview" id="resultPreviewLink" href="#" target="_blank" rel="noopener noreferrer">
+          <img id="resultPreview" alt="আপলোড করা ছবির প্রিভিউ" loading="lazy" decoding="async">
+        </a>
+
+        <div class="fields">
+          <div>
+            <span class="field-label" id="directLinkLabel">ডাইরেক্ট লিংক</span>
+            <div class="link-box">
+              <input type="text" id="directLink" readonly aria-labelledby="directLinkLabel">
+              <button type="button" class="btn btn-copy" data-copy="directLink">কপি</button>
+            </div>
+          </div>
+
+          <div>
+            <span class="field-label" id="bbcodeLabel">BBCode (ফোরাম)</span>
+            <div class="link-box">
+              <input type="text" id="bbcode" readonly aria-labelledby="bbcodeLabel">
+              <button type="button" class="btn btn-copy" data-copy="bbcode">কপি</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ Gallery ============================ -->
+  <section class="gallery-section" id="gallery">
+    <div class="section-head">
+      <h2>আপনার গ্যালারি</h2>
+      <span class="pill" id="imgCount">০</span>
+      <button class="btn btn-danger-outline btn-sm" id="clearBtn" type="button" hidden>সব মুছুন</button>
+    </div>
+
+    <div class="gallery-empty" id="galleryEmpty">
+      <div class="empty-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="m21 15-5-5L5 21"/>
+        </svg>
+      </div>
+      <p class="empty-title">গ্যালারি এখন খালি</p>
+      <p class="empty-sub">উপরের ড্রপজোন থেকে প্রথম ছবি আপলোড করুন</p>
+    </div>
+
+    <div class="gallery" id="galleryGrid" hidden></div>
+  </section>
+
+</main>
+
+<!-- ============================ Footer ============================ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-brand">Nafiz Image Host Free <span>— Free Image Hosting · © 2026</span></p>
+
+    <a class="dev-link"
+       href="https://nafiz1000x.github.io/Nafizsheikh.web/"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="Developer: Nafiz Sheikh — প্রোফাইল নতুন ট্যাবে খুলুন">
+      <span class="dev-dot" aria-hidden="true"></span>
+      Developer: Nafiz Sheikh
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M7 17 17 7M9 7h8v8"/>
+      </svg>
+    </a>
+  </div>
+</footer>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ==========================================================
+     Configuration
+     ========================================================== */
+  const IMGBB_API_KEY = "c33e5994e776be6e95d821ef13b87c32";
+
+  // Auto-delete in seconds. 0 = never. 600 = 10 min, 86400 = 1 day, 2592000 = 30 days.
+  const EXPIRATION = 0;
+
+  const API_ENDPOINT = EXPIRATION > 0
+    ? `https://api.imgbb.com/1/upload?expiration=${EXPIRATION}&key=${IMGBB_API_KEY}`
+    : `https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`;
+
+  const MAX_SIZE = 32 * 1024 * 1024;
+
+  // localStorage keys & limits
+  const STORAGE_KEY = 'nafiz-uploads-v1';
+  const MAX_HISTORY = 200;
+
+  /* ==========================================================
+     Elements
+     ========================================================== */
+  const dropzone          = document.getElementById('dropzone');
+  const fileInput         = document.getElementById('fileInput');
+  const topUploadBtn      = document.getElementById('topUploadBtn');
+  const progress          = document.getElementById('progress');
+  const progressFill      = document.getElementById('progressFill');
+  const progressText      = document.getElementById('progressText');
+  const progressPct       = document.getElementById('progressPct');
+  const result            = document.getElementById('result');
+  const resultPreview     = document.getElementById('resultPreview');
+  const resultPreviewLink = document.getElementById('resultPreviewLink');
+  const directLink        = document.getElementById('directLink');
+  const bbcode            = document.getElementById('bbcode');
+  const galleryGrid       = document.getElementById('galleryGrid');
+  const galleryEmpty      = document.getElementById('galleryEmpty');
+  const imgCount          = document.getElementById('imgCount');
+  const clearBtn          = document.getElementById('clearBtn');
+  const toast             = document.getElementById('toast');
+  const themeToggle       = document.getElementById('themeToggle');
+
+  /* ==========================================================
+     Helpers
+     ========================================================== */
+  const BN_DIGITS = '০১২৩৪৫৬৭৮৯';
+  function toBn(value) {
+    return String(value).replace(/\d/g, d => BN_DIGITS[+d]);
+  }
+
+  let toastTimer;
+  function notify(message, type) {
+    toast.textContent = message;
+    toast.className = 'toast show' + (type ? ' toast-' + type : '');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { toast.className = 'toast'; }, 2600);
+  }
+
+  /* ==========================================================
+     Upload history (localStorage)
+     ========================================================== */
+  function readHistory() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return [];
+      const parsed = JSON.parse(raw);
+      if (!Array.isArray(parsed)) return [];
+      return parsed.filter(item => item && typeof item.url === 'string' && item.url);
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function writeHistory(items) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(items.slice(0, MAX_HISTORY)));
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function createThumb(item) {
+    const viewer = item.viewer || item.url;
+    const thumb  = item.thumb || item.url;
+
+    const a = document.createElement('a');
+    a.className = 'thumb';
+    a.href = viewer;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.setAttribute('aria-label', 'আপলোড করা ছবি — নতুন ট্যাবে খুলুন');
+
+    const img = document.createElement('img');
+    img.src = thumb;
+    img.alt = 'আপলোড করা ছবি';
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    img.width = 300;
+    img.height = 300;
+
+    a.appendChild(img);
+    return a;
+  }
+
+  function updateEmptyState(count) {
+    imgCount.textContent = toBn(count);
+
+    if (count === 0) {
+      galleryEmpty.hidden = false;
+      galleryGrid.hidden = true;
+      clearBtn.hidden = true;
+    } else {
+      galleryEmpty.hidden = true;
+      galleryGrid.hidden = false;
+      clearBtn.hidden = false;
+    }
+  }
+
+  function renderGallery(items) {
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < items.length; i++) {
+      frag.appendChild(createThumb(items[i]));
+    }
+    galleryGrid.innerHTML = '';
+    galleryGrid.appendChild(frag);
+    updateEmptyState(items.length);
+  }
+
+  function appendUpload(record) {
+    galleryGrid.insertBefore(createThumb(record), galleryGrid.firstChild);
+    updateEmptyState(galleryGrid.children.length);
+  }
+
+  /* Initial render */
+  renderGallery(readHistory());
+
+  /* ==========================================================
+     File picking
+     ========================================================== */
+  dropzone.addEventListener('click', () => fileInput.click());
+
+  dropzone.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+      e.preventDefault();
+      fileInput.click();
+    }
+  });
+
+  topUploadBtn.addEventListener('click', () => fileInput.click());
+
+  fileInput.addEventListener('change', e => {
+    handleFiles(e.target.files);
+    fileInput.value = '';
+  });
+
+  /* ==========================================================
+     Drag & drop
+     ========================================================== */
+  ['dragenter', 'dragover'].forEach(type => {
+    dropzone.addEventListener(type, e => {
+      e.preventDefault();
+      e.stopPropagation();
+      dropzone.classList.add('drag');
+    });
+  });
+
+  ['dragleave', 'dragend'].forEach(type => {
+    dropzone.addEventListener(type, e => {
+      e.preventDefault();
+      dropzone.classList.remove('drag');
+    });
+  });
+
+  dropzone.addEventListener('drop', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    dropzone.classList.remove('drag');
+    if (e.dataTransfer && e.dataTransfer.files) {
+      handleFiles(e.dataTransfer.files);
+    }
+  });
+
+  // Prevent the browser from navigating away on stray drops.
+  window.addEventListener('dragover', e => e.preventDefault());
+  window.addEventListener('drop', e => e.preventDefault());
+
+  /* ==========================================================
+     Upload pipeline
+     ========================================================== */
+  function handleFiles(files) {
+    if (!files || files.length === 0) return;
+    Array.prototype.forEach.call(files, uploadFile);
+  }
+
+  function uploadFile(file) {
+    if (!file.type || file.type.indexOf('image/') !== 0) {
+      notify('শুধু ছবি আপলোড করা যাবে!', 'error');
+      return;
+    }
+    if (file.size > MAX_SIZE) {
+      notify('ফাইল ৩২ MB এর চেয়ে বড়!', 'error');
+      return;
+    }
+
+    progress.hidden = false;
+    result.hidden = true;
+    progressFill.style.width = '0%';
+    progressPct.textContent = '০%';
+    progressText.textContent = 'আপলোড হচ্ছে: ' + file.name;
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', API_ENDPOINT, true);
+
+    xhr.upload.onprogress = e => {
+      if (e.lengthComputable) {
+        const percent = Math.round((e.loaded / e.total) * 100);
+        progressFill.style.width = percent + '%';
+        progressPct.textContent = toBn(percent) + '%';
+        progressText.textContent = 'আপলোড হচ্ছে: ' + file.name + ' — ' + toBn(percent) + '%';
+      }
+    };
+
+    xhr.onload = () => {
+      progress.hidden = true;
+
+      if (xhr.status !== 200) {
+        notify('সার্ভার এরর: ' + xhr.status, 'error');
+        return;
+      }
+
+      let data;
+      try { data = JSON.parse(xhr.responseText); }
+      catch (err) { notify('সার্ভার থেকে ভুল তথ্য এসেছে।', 'error'); return; }
+
+      if (!data || !data.success) {
+        const msg = (data && data.error && data.error.message) ? data.error.message : 'Unknown error';
+        notify('আপলোড ব্যর্থ: ' + msg, 'error');
+        return;
+      }
+
+      const url    = data.data.url;
+      const viewer = data.data.url_viewer || url;
+      const thumb  = (data.data.thumb && data.data.thumb.url) ? data.data.thumb.url : url;
+
+      directLink.value = url;
+      bbcode.value = '[url=' + viewer + '][img]' + url + '[/img][/url]';
+
+      resultPreview.src = thumb;
+      resultPreviewLink.href = viewer;
+      result.hidden = false;
+
+      // Save to history
+      const record = { url: url, thumb: thumb, viewer: viewer, added: Date.now() };
+      const history = readHistory();
+      history.unshift(record);
+      if (!writeHistory(history)) {
+        notify('স্টোরেজ পূর্ণ — পুরনো ছবি মুছে ফেলুন', 'error');
+      }
+
+      appendUpload(record);
+      notify('আপলোড সম্পন্ন হয়েছে!', 'ok');
+    };
+
+    xhr.onerror = () => {
+      progress.hidden = true;
+      notify('নেটওয়ার্ক এরর!', 'error');
+    };
+
+    xhr.ontimeout = () => {
+      progress.hidden = true;
+      notify('সময় শেষ — আবার চেষ্টা করুন।', 'error');
+    };
+
+    try {
+      xhr.send(formData);
+    } catch (err) {
+      progress.hidden = true;
+      notify('সমস্যা: ' + err.message, 'error');
+    }
+  }
+
+  /* ==========================================================
+     Clear history
+     ========================================================== */
+  clearBtn.addEventListener('click', () => {
+    if (galleryGrid.children.length === 0) return;
+
+    const confirmed = window.confirm('আপনার গ্যালারির সব ছবি মুছে ফেলবেন?\n\n(মনে রাখবেন: এটি শুধু আপনার গ্যালারির তালিকা মুছবে — imgbb-এ আপলোড করা ছবি তাদের সার্ভার থেকে মুছে যাবে না।)');
+    if (!confirmed) return;
+
+    try { localStorage.removeItem(STORAGE_KEY); } catch (err) { /* ignore */ }
+
+    galleryGrid.innerHTML = '';
+    result.hidden = true;
+    updateEmptyState(0);
+    notify('গ্যালারি খালি করা হয়েছে', 'ok');
+  });
+
+  /* ==========================================================
+     Copy to clipboard (delegated + fallback)
+     ========================================================== */
+  function legacyCopy(input) {
+    const wasReadonly = input.hasAttribute('readonly');
+    input.removeAttribute('readonly');
+    input.select();
+    try { input.setSelectionRange(0, 99999); } catch (err) { /* ignore */ }
+    try { document.execCommand('copy'); } catch (err) { /* ignore */ }
+    if (wasReadonly) input.setAttribute('readonly', 'readonly');
+    try { window.getSelection().removeAllRanges(); } catch (err) { /* ignore */ }
+  }
+
+  function flashCopied(button) {
+    if (!button) return;
+    const original = button.textContent;
+    button.textContent = '✓ কপি';
+    button.classList.add('copied');
+    setTimeout(() => {
+      button.textContent = original;
+      button.classList.remove('copied');
+    }, 1500);
+  }
+
+  document.addEventListener('click', e => {
+    const button = e.target.closest ? e.target.closest('[data-copy]') : null;
+    if (!button) return;
+
+    const input = document.getElementById(button.getAttribute('data-copy'));
+    if (!input || !input.value) {
+      notify('কপি করার মতো কিছু নেই।', 'error');
+      return;
+    }
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(input.value).then(() => {
+        flashCopied(button);
+        notify('কপি হয়েছে!', 'ok');
+      }).catch(() => {
+        legacyCopy(input);
+        flashCopied(button);
+        notify('কপি হয়েছে!', 'ok');
+      });
+    } else {
+      legacyCopy(input);
+      flashCopied(button);
+      notify('কপি হয়েছে!', 'ok');
+    }
+  });
+
+  /* ==========================================================
+     Theme toggle
+     ========================================================== */
+  function syncThemeButton() {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    themeToggle.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+    themeToggle.setAttribute('aria-label', isDark ? 'লাইট থিমে যান' : 'ডার্ক থিমে যান');
+  }
+
+  themeToggle.addEventListener('click', () => {
+    const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem('nafiz-theme', next); } catch (err) { /* ignore */ }
+    syncThemeButton();
+  });
+
+  syncThemeButton();
+
+  /* ==========================================================
+     Backwards-compatible global copy helper
+     ========================================================== */
+  window.copyLink = function (id) {
+    const input = document.getElementById(id);
+    if (!input || !input.value) return;
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(input.value).catch(() => legacyCopy(input));
+    } else {
+      legacyCopy(input);
+    }
+    notify('কপি হয়েছে!', 'ok');
+  };
+})();
+</script>
+</body>
+</html>
